@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Movie Catalogue</string>
+    <string name="text_movie">Movie</string>
+    <string name="text_tvshow">TV Show</string>
+    <string name="text_genre_template">Genre: %1s</string>
+    <string name="text_status_template">Status: %1s</string>
+    <string name="text_release_template">Release Date: %1s</string>
+
+</resources>

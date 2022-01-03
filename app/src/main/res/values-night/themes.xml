@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.MovieCatalogue" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">@color/DarkSlateGray</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/LightSlateGray</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/DimGray</item>
+        <item name="colorSecondaryVariant">@color/DarkGray</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorAccent">@color/DarkSalmon</item>
+
+        <item name="android:colorBackground">@color/LightGrey</item>
+        <item name="android:editTextColor">?attr/colorOnPrimary</item>
+        <item name="android:textColorHint">?attr/colorOnPrimary</item>
+        <item name="android:textColor">@color/DimGray</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/movie_catalogue_logo</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="postSplashScreenTheme">@style/Theme.MovieCatalogue</item>
+    </style>
+
+</resources>
