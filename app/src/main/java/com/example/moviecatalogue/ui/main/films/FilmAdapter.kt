@@ -1,43 +1,44 @@
-package com.example.moviecatalogue.ui.films
+package com.example.moviecatalogue.ui.main.films
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviecatalogue.R
 import com.example.moviecatalogue.data.Film
 import com.example.moviecatalogue.databinding.ItemFilmBinding
-import com.example.moviecatalogue.ui.details.DetailFilmActivity
+import com.example.moviecatalogue.utils.FilmAdapterHelper
 
 /**
  * Created by Seline on 21/12/2021 19:42
  */
-class FilmAdapter : RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {
+class FilmAdapter(private val onClick: (id: String) -> Unit) :
+    RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {
 
     private var listFilms = ArrayList<Film>()
 
     fun setFilms(films: List<Film>?) {
         if (films == null) return
+        val diffCallback = FilmAdapterHelper(this.listFilms, films)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.listFilms.clear()
         this.listFilms.addAll(films)
+        diffResult.dispatchUpdatesTo(this)
     }
 
     class FilmViewHolder(private val binding: ItemFilmBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(film: Film) {
+        fun bind(film: Film, onClick: (id: String) -> Unit) {
             with(binding) {
                 textTitle.text = film.title
                 textGenre.text =
                     itemView.context.getString(R.string.text_genre_template, film.genre)
                 itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailFilmActivity::class.java)
-                    intent.putExtra(DetailFilmActivity.EXTRA_FILM, film)
-                    itemView.context.startActivity(intent)
+                    onClick(film.filmID)
                 }
                 Glide.with(itemView.context)
-                    .load(AppCompatResources.getDrawable(itemView.context, film.image))
+                    .load(film.image)
                     .into(imgPoster)
             }
         }
@@ -51,7 +52,7 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {
 
     override fun onBindViewHolder(holder: FilmViewHolder, position: Int) {
         val film = listFilms[position]
-        holder.bind(film)
+        holder.bind(film, onClick)
     }
 
     override fun getItemCount(): Int = listFilms.size

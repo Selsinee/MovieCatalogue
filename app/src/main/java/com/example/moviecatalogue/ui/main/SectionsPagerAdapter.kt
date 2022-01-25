@@ -3,7 +3,7 @@ package com.example.moviecatalogue.ui.main
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.moviecatalogue.ui.films.FilmFragment
+import com.example.moviecatalogue.ui.main.films.FilmFragment
 
 /**
  * Created by Seline on 21/12/2021 20:36
@@ -20,8 +20,6 @@ class SectionsPagerAdapter(activity: AppCompatActivity) :
         return fragment as Fragment
     }
 
-    override fun getItemCount(): Int {
-        return 2
-    }
+    override fun getItemCount() = 2
 
 }

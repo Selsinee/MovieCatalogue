@@ -1,10 +1,13 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
     compileSdk 31
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.moviecatalogue"
@@ -14,6 +17,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        buildConfigField('String', 'API_KEY', apiKey)
     }
 
     buildTypes {
@@ -35,14 +39,24 @@ android {
             includeAndroidResources = true
         }
     }
+
     buildFeatures {
         viewBinding true
     }
 }
 
 dependencies {
+    //room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
+    //dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    compileOnly 'javax.annotation:jsr250-api:1.0'
+
     //splash
-    implementation 'androidx.core:core-splashscreen:1.0.0-alpha02'
+    implementation "androidx.core:core-splashscreen:$splashVersion"
 
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -56,20 +70,24 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    //network
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
     //testing
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
 
     testImplementation "junit:junit:$junitVersion"
     testImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
-    testImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+    testImplementation "com.android.support.test.espresso:espresso-contrib:$espressoContribVersion"
     testImplementation "androidx.test:core:$testCoreVersion"
     androidTestImplementation "androidx.test:core:$testCoreVersion"
     androidTestImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
-    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
-    androidTestImplementation "org.mockito:mockito-core:3.3.3"
-    androidTestImplementation 'com.linkedin.dexmaker:dexmaker-mockito-inline:2.28.1'
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espressoContribVersion"
+    androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito-inline:$mockitoInlineVersion"
     androidTestImplementation "androidx.test:runner:$androidTestVersion"
     androidTestImplementation "androidx.test:rules:$androidTestVersion"
     androidTestImplementation "androidx.test.ext:junit:$junitExtversion"

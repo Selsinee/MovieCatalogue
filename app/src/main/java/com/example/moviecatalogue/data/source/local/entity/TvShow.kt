@@ -1,19 +1,17 @@
-package com.example.moviecatalogue.data
+package com.example.moviecatalogue.data.source.local.entity
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-import java.io.Serializable
 
 /**
- * Created by Seline on 21/12/2021 17:27
+ * Created by Seline on 24/01/2022 18:29
  */
-
+@Entity(tableName = "TvShows")
 @Parcelize
-data class Film (
+data class TvShow (
     @PrimaryKey
     @ColumnInfo(name = "filmID")
     var filmID: String,
@@ -38,4 +36,5 @@ data class Film (
 
     @ColumnInfo(name = "image")
     var image: String
-    ) : Parcelable
+
+) : Parcelable
